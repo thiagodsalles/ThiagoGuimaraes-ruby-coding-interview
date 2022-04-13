@@ -36,7 +36,7 @@ RSpec.describe "Users", type: :request do
       let(:username) { user.username }
 
       it 'returns only the user for the specified partial username' do
-        get users_path, params: { username: username.last(2) }
+        get users_path, params: { username: username.last(4) }
 
         expect(result.first['username']).to eq(username)
         expect(result.first['id']).to eq(user.id)
