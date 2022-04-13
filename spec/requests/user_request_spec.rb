@@ -30,6 +30,19 @@ RSpec.describe "Users", type: :request do
       end
     end
 
+    context 'when fetching users by username passing partial username' do
+      let(:users) { create_list(:user, 2) }
+      let(:user) { users.last }
+      let(:username) { user.username }
+
+      it 'returns only the user for the specified partial username' do
+        get users_path, params: { username: username.last(2) }
+
+        expect(result.first['username']).to eq(username)
+        expect(result.first['id']).to eq(user.id)
+      end
+    end
+
     context 'when fetching all users' do
       include_context 'with multiple companies'
 
